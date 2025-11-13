@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2"
+  },
+  "name": "learning-platform",
+  "version": "1.0.0",
+  "description": "This is a learning platform website I built during my 3rd and 4th semesters of Computer Engineering. The aim was to create a structured and easily accessible platform where students can find academic resources in one place.",
+  "main": "login.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuvikadessai/Learning-Platform.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/yuvikadessai/Learning-Platform/issues"
+  },
+  "homepage": "https://github.com/yuvikadessai/Learning-Platform#readme"
+}
