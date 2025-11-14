@@ -1,0 +1,82 @@
+const db = require("../config/db");
+
+// Middleware to check admin login
+function isAdmin(req, res, next) {
+    if (!req.session.user || req.session.user.role !== "admin") {
+        return res.redirect("/login");
+    }
+    next();
+}
+
+// ----------- Dashboard -----------
+const showAdminDashboard = (req, res) => {
+    res.render("adminDashboard");
+};
+
+// ----------- View Students -----------
+const viewStudents = (req, res) => {
+    db.query("SELECT u.*, c.course_name FROM users u LEFT JOIN course c ON u.course_id = c.course_id", (err, students) => {
+        if (err) throw err;
+        res.render("adminStudents", { students });
+    });
+};
+
+// ----------- View Courses -----------
+const viewCourses = (req, res) => {
+    db.query("SELECT * FROM course", (err, courses) => {
+        if (err) throw err;
+        res.render("adminCourses", { courses });
+    });
+};
+
+// ----------- View Subjects per Course -----------
+const viewSubjects = (req, res) => {
+    db.query("SELECT s.*, c.course_name FROM subjects s JOIN course c ON s.course_id = c.course_id", (err, subjects) => {
+        if (err) throw err;
+        res.render("adminSubjects", { subjects });
+    });
+};
+
+// ----------- Add Course Form -----------
+const showAddCourseForm = (req, res) => {
+    res.render("addCourse");
+};
+
+// ----------- Add Course -----------
+const addCourse = (req, res) => {
+    const { course_name } = req.body;
+    db.query("INSERT INTO course (course_name) VALUES (?)", [course_name], (err, result) => {
+        if (err) throw err;
+        res.redirect("/admin/courses");
+    });
+};
+
+// ----------- Add Subject Form -----------
+const showAddSubjectForm = (req, res) => {
+    // fetch courses to assign subject
+    db.query("SELECT * FROM course", (err, courses) => {
+        if (err) throw err;
+        res.render("addSubject", { courses });
+    });
+};
+
+// ----------- Add Subject -----------
+const addSubject = (req, res) => {
+    const { subject_name, course_id } = req.body;
+    db.query("INSERT INTO subjects (subject_name, course_id) VALUES (?, ?)", [subject_name, course_id], (err, result) => {
+        if (err) throw err;
+        res.redirect("/admin/subjects");
+    });
+};
+
+module.exports = {
+    isAdmin,
+    showAdminDashboard,
+    viewStudents,
+    viewCourses,
+    viewSubjects,
+    showAddCourseForm,
+    addCourse,
+    showAddSubjectForm,
+    addSubject
+};
