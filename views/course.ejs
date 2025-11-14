@@ -1,0 +1,16 @@
+<%- include("partials/header", { title: "Courses" }) %>
+
+<div class="container">
+    <h1>Available Courses</h1>
+
+    <div class="course-list">
+        <% courses.forEach(course => { %>
+            <div class="course-card">
+                <h3><%= course.course_name %></h3>
+                <a class="btn" href="/course/<%= course.course_id %>">View Subjects</a>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<%- include("partials/footer") %>
