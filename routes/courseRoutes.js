@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { isLoggedIn, showCourses, selectCourse } = require("../controllers/courseController");
+const { isLoggedIn, showCourses, selectCourse } = require("../controllers/courseControllers");
 
 // GET route to show courses
 router.get("/select-course", isLoggedIn, showCourses);
