@@ -2,6 +2,16 @@ const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
+const courseRoutes = require("./routes/courseRoutes");
+const contactRoutes = require("./routes/contactRoutes");
+const dashboardRoutes = require("./routes/studentDashboardRoutes");
+const dashboardRoutes = require("./routes/subjectsRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+
+
+
+
+
 
 dotenv.config();
 const app = express();
@@ -16,6 +26,19 @@ app.use(express.json());
 
 // Routes
 app.use("/", userRoutes);
+app.use("/", courseRoutes);
+app.use("/", contactRoutes);
+app.use("/", dashboardRoutes);
+app.use("/", subjectsRoutes);
+app.use("/", adminRoutes);
+
+app.use(session({
+    secret: "yourSecretKey",   // change this to a strong secret
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 60 } // 1 hour
+}));
+
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
