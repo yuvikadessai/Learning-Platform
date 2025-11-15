@@ -53,7 +53,7 @@ A comprehensive web-based learning management system with role-based authenticat
 **Backend:**
 - Node.js
 - Express.js
-- MongoDB/Database connection
+- MySQL/Database connection
 
 **Additional:**
 - RESTful API architecture
