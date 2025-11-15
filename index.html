@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Platform</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Login Page -->
+        <div id="loginPage" class="page active">
+            <div class="auth-container">
+                <h2>🎓 Learning Platform Login</h2>
+                <div id="loginError" class="error" style="display: none;"></div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="loginEmail" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+                <div class="switch-auth">
+                    Don't have an account? <a href="#" onclick="showPage('registerPage')">Register here</a>
+                </div>
+                <div style="margin-top: 30px; padding: 20px; background: #f0f0f0; border-radius: 10px;">
+                    <p style="text-align: center; color: #666; font-size: 14px; margin-bottom: 10px;"><strong>Demo Accounts:</strong></p>
+                    <p style="text-align: center; color: #666; font-size: 13px;">Admin: admin@learn.com / admin123</p>
+                    <p style="text-align: center; color: #666; font-size: 13px;">Student: student@learn.com / student123</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Page -->
+        <div id="registerPage" class="page">
+            <div class="auth-container">
+                <h2>📚 Create Account</h2>
+                <div id="registerError" class="error" style="display: none;"></div>
+                <div id="registerSuccess" class="success" style="display: none;"></div>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="registerName" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="registerEmail" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="registerPassword" required placeholder="Create a password">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="registerConfirmPassword" required placeholder="Confirm your password">
+                    </div>
+                    <button type="submit" class="btn">Register</button>
+                </form>
+                <div class="switch-auth">
+                    Already have an account? <a href="#" onclick="showPage('loginPage')">Login here</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Selection Page -->
+        <div id="courseSelectionPage" class="page">
+            <div class="header">
+                <div class="logo">🎓 Learning Platform</div>
+                <div class="user-info">
+                    <span id="userNameCourse"></span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+            <div style="padding: 40px;">
+                <h2 style="text-align: left;">Select Your Course</h2>
+                <p style="color: #666; margin-bottom: 20px;">Choose a course to begin your learning journey</p>
+                <div class="courses-grid" id="coursesGrid"></div>
+            </div>
+        </div>
+
+        <!-- Student Dashboard -->
+        <div id="studentDashboard" class="page">
+            <div class="header">
+                <div class="logo">🎓 Student Dashboard</div>
+                <div class="user-info">
+                    <span id="userNameStudent"></span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+            <div style="padding: 40px;">
+                <h2 style="text-align: left;">My Dashboard</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <h3 id="enrolledCount">0</h3>
+                        <p>Enrolled Courses</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="completedCount">0</h3>
+                        <p>Completed Courses</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="hoursSpent">0</h3>
+                        <p>Hours Spent</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>My Courses</h3>
+                    <div class="course-list" id="myCoursesList"></div>
+                </div>
+
+                <div style="margin-top: 30px; text-align: center;">
+                    <button class="btn" style="max-width: 300px;" onclick="showPage('courseSelectionPage')">Browse More Courses</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="adminDashboard" class="page">
+            <div class="header">
+                <div class="logo">⚙️ Admin Dashboard</div>
+                <div class="user-info">
+                    <span id="userNameAdmin"></span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+            <div style="padding: 40px;">
+                <h2 style="text-align: left;">Platform Overview</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <h3 id="totalUsers">0</h3>
+                        <p>Total Users</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="totalCourses">6</h3>
+                        <p>Total Courses</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="totalEnrollments">0</h3>
+                        <p>Total Enrollments</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>All Users</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Enrolled Courses</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h3>Course Statistics</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Course Name</th>
+                                <th>Instructor</th>
+                                <th>Duration</th>
+                                <th>Students Enrolled</th>
+                            </tr>
+                        </thead>
+                        <tbody id="coursesTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
